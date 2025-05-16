@@ -1,0 +1,29 @@
+<html lang="en">
+    <!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Interativo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <form id="form-catalogo">
+            <h1>Catálogo de Itens</h1>
+            <input type="text" id="nomeItem" placeholder="Nome do item" required>
+            <input type="text" id="categoriaItem" placeholder="Categoria" required>
+            <button class="enviar" type="submit">Adicionar</button>
+        </form>
+    </div>
+    <h2>Itens</h2>
+<div class="itens-container">
+    <ul id="listaItens"></ul>
+</div>
+<div class="container-botoes">
+    <button id="exportar">Exportar JSON</button>
+    <button id="botaoImportar">Importar JSON</button>
+    <input type="file" id="inputImportar" accept=".json" style="display: none;">
+</div>
+<script src="script.js"></script>
+</body>
+</html>

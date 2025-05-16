@@ -1,0 +1,111 @@
+body{
+    font-family:Arial, sans-serif;
+    padding: 20px;
+    background-color: rgb(46, 46, 46);
+    align-content: center;
+    margin-left: 37%;
+}
+form{
+    margin-bottom: 20px;
+    border: 2px solid #007bff; /* borda azul */
+    border-radius: 8px;        /* cantos arredondados */
+    padding: 20px;             /* espaço interno */
+    width: 490px;
+    box-shadow: 10px 10px 10px 5px;
+}
+.itens-container {
+    background: rgb(46, 46, 46);
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 420px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    margin-left: -2%;
+    box-shadow: 10px 10px 10px 5px;
+}
+
+h2, h1{
+    color: #007bff;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+input{
+    padding: 8px;
+    margin-right: 10px;
+}
+button{
+    align-items: center;
+    justify-content: center;
+    padding: 17px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin: 5px;
+}
+button:hover{
+    background-color: #025dbe;
+}
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+li{
+    background:  #837f7f;
+    color: white;
+    padding: 0 10px; /* padding lateral */
+    margin-left: -3%;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    padding-right: 4px;
+    width: 410px; /* largura menor */
+    height: 42px;
+    display: flex;
+    align-items: center; /* centraliza verticalmente */
+}
+li button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    align-items: center;
+    align-content: center;
+    margin-left: -5%;
+    width: 540px;
+}
+.remover{
+    width: 100px;
+    height: 15px;
+    border-radius: 30px;
+    background-color: red;
+    color: black;
+}
+.remover:hover{
+    background-color: rgb(199, 0, 0);
+}
+.editar{
+    width: 100px;
+    height: 15px;
+    border-radius: 30px;
+    background-color: rgb(229, 255, 0);
+    color: black;
+}
+.editar:hover{
+    background-color:rgb(147, 163, 0) ;
+}
+.enviar{
+    padding:10px;
+}
+.container-botoes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 420px;
+    height: 58px;
+    align-content: end;
+    gap: 80px;
+}
