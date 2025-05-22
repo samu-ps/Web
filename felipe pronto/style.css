@@ -1,0 +1,73 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 8px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* li {
+    background: white;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+  } */
+
+/*  button.remover {
+background: none;
+border: none;
+color: grey;
+font-size: 15px;
+cursor: pointer;
+float: right;
+align-items: center;
+padding: 0px;
+} */
+
+/* button.remover:hover {
+color: darkred;
+} */
+
+.container-botoes {
+    display: flex;
+    gap: 10px;              
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+    flex-wrap: wrap;        
+}
+
+.container-botoes button {
+    padding: 8px 14px;
+    
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.container-botoes button:hover {
+    background-color: #0056b3;
+}

@@ -2,12 +2,12 @@ body {
     font-family: Arial, sans-serif;
     padding: 0;
     margin: 0;
-    background-color: rgb(43, 42, 42);
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* centraliza verticalmente */
-    align-items: center;     /* centraliza horizontalmente */
+    padding-top: 60px; /* espaço para navbar fixa */
+    background-image: url(./img/bg.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 form {
@@ -56,6 +56,14 @@ h2, h1{
     font-size: 1.5em;
     margin-bottom: 10px;
 }
+h1 {
+    color: #e9e9e9;
+    font-size: 2em;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100vw;
+}
 input{
     padding: 8px;
     margin-right: 10px;
@@ -95,11 +103,12 @@ li button{
     justify-content: center;
 }
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     margin: 0;
     width: 540px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;    
 }
 .remover{
     width: 100px;
@@ -133,4 +142,16 @@ li button{
     height: 58px;
     align-content: end;
     gap: 80px;
+}
+nav.navbar .container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* centraliza horizontalmente */
+    height: 100%;
+    gap: 10px; /* espaço entre imagem e texto */
+}
+nav.navbar .navbar-brand {
+    display: flex;
+    align-items: center;
+    margin: 0;
 }
