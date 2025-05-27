@@ -71,3 +71,13 @@ color: darkred;
 .container-botoes button:hover {
     background-color: #0056b3;
 }
+
+.col-2 {
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    background: #fff;
+    padding: 10px;
+    margin: 5px;
+    box-sizing: border-box;
+    /* Para garantir espaçamento igual entre os cards e o canto */
+}
