@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Categorias com Cards</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        select, button { margin: 5px; padding: 5px; }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            padding: 20px;
+            width: 200px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .contador {
+            font-size: 2rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Cadastro de Categorias</h2>
+
+    <label for="categoria">Escolha uma categoria:</label>
+    <select id="categoria">
+        <option value="Alimentos">Alimentos</option>
+        <option value="Eletrônicos">Eletrônicos</option>
+        <option value="Roupas">Roupas</option>
+        <option value="Livros">Livros</option>
+    </select>
+
+    <button onclick="cadastrar()">Cadastrar</button>
+
+    <div class="cards">
+        <div class="card" id="card-Alimentos">
+            <h3>Alimentos</h3>
+            <div class="contador" id="contador-Alimentos">0</div>
+        </div>
+
+        <div class="card" id="card-Eletrônicos">
+            <h3>Eletrônicos</h3>
+            <div class="contador" id="contador-Eletrônicos">0</div>
+        </div>
+
+        <div class="card" id="card-Roupas">
+            <h3>Roupas</h3>
+            <div class="contador" id="contador-Roupas">0</div>
+        </div>
+
+        <div class="card" id="card-Livros">
+            <h3>Livros</h3>
+            <div class="contador" id="contador-Livros">0</div>
+        </div>
+    </div>
+
+    <script>
+        // Objeto para armazenar a contagem
+        const contador = {
+            "Alimentos": 0,
+            "Eletrônicos": 0,
+            "Roupas": 0,
+            "Livros": 0
+        };
+
+        function cadastrar() {
+            const select = document.getElementById('categoria');
+            const categoria = select.value;
+
+            // Incrementa a contagem
+            contador[categoria]++;
+
+            // Atualiza o card correspondente
+            const contadorElemento = document.getElementById(`contador-${categoria}`);
+            if (contadorElemento) {
+                contadorElemento.textContent = contador[categoria];
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -78,20 +78,13 @@ lista.addEventListener('click', function(event) {
 });
 
 
-
-
-
-
-
-
-
 document.getElementById('exportar').addEventListener('click', function() {
   const itens = [];
 
   /* lista.querySelectorAll('li').forEach(li => {
     const nome = li.querySelector('strong')?.textContent;
     const categoria = li.querySelector('em')?.textContent.replace(/[()]/g, ''); */
-   
+
     lista.querySelectorAll('tr').forEach(linha => {
     const nome = linha.children[0]?.textContent.trim();
     const categoria = linha.children[1]?.textContent.trim();
