@@ -11,17 +11,52 @@ document.addEventListener('DOMContentLoaded', function () {
         Vult: 0
     };
 
+    let linhaEmEdicao = null;
+
     function atualizarContador(marca) {
         const contadorElemento = document.getElementById(`contador-${marca}`);
         if (contadorElemento) {
-            contadorElemento.textContent = contador[marca];
+            contadorElemento.textContent = contador[marca] || 0;
         }
     }
 
-    let linhaEmEdicao = null;
-    let marcaOriginal = '';
+    function salvarDados() {
+        const itens = [];
+        lista.querySelectorAll('tr').forEach(linha => {
+            const nome = linha.children[0].textContent.trim();
+            const marca = linha.children[1].textContent.trim();
+            itens.push({ nome, marca });
+        });
+        localStorage.setItem('catalogoEsmaltes', JSON.stringify(itens));
+    }
 
-    // Adicionar item
+    function carregarDados() {
+        const dados = JSON.parse(localStorage.getItem('catalogoEsmaltes')) || [];
+
+        dados.forEach(item => {
+            const linha = criarLinha(item.nome, item.marca);
+            lista.appendChild(linha);
+            contador[item.marca] = (contador[item.marca] || 0) + 1;
+        });
+
+        Object.keys(contador).forEach(marca => atualizarContador(marca));
+    }
+
+    function criarLinha(nome, marca) {
+        const linha = document.createElement('tr');
+        linha.innerHTML = `
+            <td><strong>${nome}</strong></td>
+            <td class="text-center"><em>${marca}</em></td>
+            <td class="text-center">
+                <button class="btn btn-warning btn-sm editar">Editar</button>
+                <button class="btn btn-outline-danger btn-sm remover">Remover</button>
+            </td>
+        `;
+
+        adicionarEventosBotoes(linha);
+        return linha;
+    }
+
     form.addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -33,28 +68,19 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const novaLinha = document.createElement('tr');
-        novaLinha.innerHTML = `
-            <td><strong>${nome}</strong></td>
-            <td class="text-center"><em>${marca}</em></td>
-            <td class="text-center">
-                <button class="btn btn-warning btn-sm editar">Editar</button>
-                <button class="btn btn-outline-danger btn-sm remover">Remover</button>
-            </td>
-        `;
-        lista.appendChild(novaLinha);
+        const linha = criarLinha(nome, marca);
+        lista.appendChild(linha);
 
         contador[marca]++;
         atualizarContador(marca);
 
-        adicionarEventosBotoes(novaLinha);
+        salvarDados();
 
         form.reset();
         const modal = bootstrap.Modal.getInstance(document.getElementById('modalEsmalte'));
         modal.hide();
     });
 
-    // Função para adicionar eventos de editar e remover
     function adicionarEventosBotoes(linha) {
         const btnRemover = linha.querySelector('.remover');
         const btnEditar = linha.querySelector('.editar');
@@ -64,14 +90,13 @@ document.addEventListener('DOMContentLoaded', function () {
             linha.remove();
             contador[marca]--;
             atualizarContador(marca);
+            salvarDados();
         });
 
         btnEditar.addEventListener('click', function () {
             linhaEmEdicao = linha;
             const nome = linha.children[0].textContent.trim();
             const marca = linha.children[1].textContent.trim();
-
-            marcaOriginal = marca;
 
             document.getElementById('nomeItemEditar').value = nome;
             document.getElementById('categoriaItemEditar').value = marca;
@@ -81,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Salvar edição
     formEditar.addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -94,25 +118,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (linhaEmEdicao) {
-            const nomeAntigo = linhaEmEdicao.children[0].textContent.trim();
             const marcaAntiga = linhaEmEdicao.children[1].textContent.trim();
 
             linhaEmEdicao.children[0].innerHTML = `<strong>${novoNome}</strong>`;
             linhaEmEdicao.children[1].innerHTML = `<em>${novaMarca}</em>`;
 
-            // Atualizar contadores se a marca foi alterada
             if (marcaAntiga !== novaMarca) {
                 contador[marcaAntiga]--;
-                contador[novaMarca]++;
+                contador[novaMarca] = (contador[novaMarca] || 0) + 1;
                 atualizarContador(marcaAntiga);
                 atualizarContador(novaMarca);
             }
+
+            salvarDados();
         }
 
         linhaEmEdicao = null;
-        marcaOriginal = '';
 
         const modal = bootstrap.Modal.getInstance(document.getElementById('modalEditar'));
         modal.hide();
     });
+
+    // Inicializa carregando dados
+    carregarDados();
 });
