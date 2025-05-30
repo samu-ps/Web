@@ -1,39 +1,58 @@
-document.addEventListener('DOMContentLoaded', function () {
+// document.addEventListener('DOMContentLoaded', function () {
+//     const form = document.getElementById('form-catalogo2');
+//     const listaItens = document.getElementById('listaItens');
 
-    const form = document.getElementById('form-catalogo2');
-    const listaItens = document.getElementById('listaItens');
+//     const contador = {
+//         Colorama: 0,
+//         Impala: 0,
+//         Dailus: 0,
+//         Revlon: 0,
+//         Vult: 0
+//     };
 
-    // Objeto para controlar os contadores das marcas
-    const contador = {
-        Colorama: 0,
-        Impala: 0,
-        Dailus: 0,
-        Revlon: 0,
-        Vult: 0
-    };
+//     function atualizarContador(marca) {
+//         const contadorElemento = document.getElementById(`contador-${marca}`);
+//         if (contadorElemento) {
+//             contadorElemento.textContent = contador[marca];
+//         }
+//     }
 
-    // Função para atualizar o contador no card
-    function atualizarContador(marca) {
-        const contadorElemento = document.getElementById(`contador-${marca}`);
-        if (contadorElemento) {
-            contadorElemento.textContent = contador[marca];
-        }
-    }
+//     form.addEventListener('submit', function (e) {
+//         e.preventDefault();
 
-        listaItens.appendChild(tr);
+//         const nomeItemInput = document.getElementById('nomeItem');
+//         const categoriaItemSelect = document.getElementById('categoriaItem');
 
-        // Incrementa o contador
-        contador[marca]++;
-        atualizarContador(marca);
+//         const nomeItem = nomeItemInput.value.trim();
+//         const marca = categoriaItemSelect.value;
 
-        // Adiciona funcionalidade de remover
-        const btnRemover = tr.querySelector('.btn-remover');
-        btnRemover.addEventListener('click', function () {
-            // Remove a linha
-            tr.remove();
+//         const tr = document.createElement('tr');
 
-            // Decrementa o contador
-            contador[marca]--;
-            atualizarContador(marca);
-        });
-    })
+//         tr.innerHTML = `
+//             <td>${nomeItem}</td>
+//             <td class="text-center">${marca}</td>
+//             <td class="text-center">
+//                 <button class="btn btn-danger btn-sm btn-remover">Remover</button>
+//             </td>
+//         `;
+
+//         listaItens.appendChild(tr);
+
+//         // Incrementa contador da marca
+//         contador[marca]++;
+//         atualizarContador(marca);
+
+//         // Evento de remover item
+//         const btnRemover = tr.querySelector('.btn-remover');
+//         btnRemover.addEventListener('click', function () {
+//             tr.remove();
+//             contador[marca]--;
+//             atualizarContador(marca);
+//         });
+
+//         // Resetar formulário e fechar modal
+//         form.reset();
+//         const modal = bootstrap.Modal.getInstance(document.getElementById('modalEsmalte'));
+//         modal.hide();
+//     });
+// });
