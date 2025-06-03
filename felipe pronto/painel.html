@@ -24,7 +24,6 @@
         </div>
     </nav>
 
-    <!-- Cards das marcas com contador -->
     <div class="container text-center mb-4">
         <div class="row justify-content-around">
             <div class="col-2" id="card-Colorama">
@@ -43,14 +42,35 @@
                 <img src="./img/Revlon.png" alt="Revlon">
                 <div class="contador" id="contador-Revlon">0</div>
             </div>
-            <div class="col-2" id="card-Vult">
-                <img src="./img/Vult.png" alt="Vult">
-                <div class="contador" id="contador-Vult">0</div>
+            <div class="col-2" id="card-Risque">
+                <img src="./img/Risque.jpg" alt="Risque" style="width: 100px; height: 100px;">
+                <div class="contador" id="contador-Risque">0</div>
             </div>
         </div>
     </div>
 
+    
     <div style="max-width: 800px; margin: auto; padding-top: 2%;">
+        <div class="mb-3 d-flex justify-content-center gap-2">
+            <button type="button" class="btn btn-primary" id="exportar">Exportar JSON</button>
+            <button type="button" class="btn btn-secondary" id="botaoImportar">Importar JSON</button>
+            <input type="file" id="inputImportar" accept=".json" style="display: none;">
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="filtroCor" placeholder="Filtrar por Cor" aria-label="Filtrar por Cor" aria-describedby="button-addon2">
+            <button class="btn btn-success" type="button" id="button-addon2">Button</button>
+        </div>
+        <div class="mb-3 d-flex justify-content-end">
+            <select id="filtroEsmalte" class="form-select w-45" onchange="filter">
+                <option value="">Todos</option>
+                <option value="Colorama">Colorama</option>
+                <option value="Impala">Impala</option>
+                <option value="Dailus">Dailus</option>
+                <option value="Revlon">Revlon</option>
+                <option value="Vult">Vult</option>
+            </select>
+        </div>
+    <table class="table table-bordered table-hover">
         <table class="table table-bordered table-hover">
             <thead class="table-dark text-center">
                 <tr>
@@ -60,19 +80,16 @@
                 </tr>
             </thead>
             <tbody id="listaItens">
-                <!-- o formulário insere os itens automaticamente -->
             </tbody>
         </table>
     </div>
 
-    <!-- Botão para abrir o modal -->
 <div class="botao-flutuante">
     <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalEsmalte">
         Adicionar Esmalte
     </button>
 </div>
 
-<!-- Modal Bootstrap com formulário -->
 <div class="modal fade" id="modalEsmalte" tabindex="-1" aria-labelledby="modalEsmalteLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -107,7 +124,6 @@
     </div>
 </div>
 
-<!-- Modal de Edição -->
 <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

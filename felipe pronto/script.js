@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         Impala: 0,
         Dailus: 0,
         Revlon: 0,
-        Vult: 0
+        Risque: 0
     };
 
     let linhaEmEdicao = null;
@@ -41,6 +41,65 @@ document.addEventListener('DOMContentLoaded', function () {
 
         Object.keys(contador).forEach(marca => atualizarContador(marca));
     }
+
+document.getElementById('exportar').addEventListener('click', function() {
+    const itens = [];
+    lista.querySelectorAll('tr').forEach(tr => {
+        const nome = tr.children[0]?.textContent.trim();
+        const marca = tr.children[1]?.textContent.trim();
+        itens.push({ nome, marca });
+    });
+
+    const json = JSON.stringify(itens, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = "catalogo.json";
+    link.click();
+});
+
+
+
+document.getElementById('botaoImportar').addEventListener('click', function() {
+  document.getElementById('inputImportar').click(); // força o clique no input invisível
+});
+
+
+document.getElementById('inputImportar').addEventListener('change', function(event) {
+    const arquivo = event.target.files[0];
+    if (!arquivo) return;
+
+    const leitor = new FileReader();
+    leitor.onload = function(e) {
+        const conteudo = e.target.result;
+        try {
+            const dados = JSON.parse(conteudo);
+
+            lista.innerHTML = ''; // limpa a tabela
+
+            // Zera os contadores
+            Object.keys(contador).forEach(marca => contador[marca] = 0);
+
+            dados.forEach(item => {
+                if (item.nome && item.marca) {
+                    const linha = criarLinha(item.nome, item.marca);
+                    lista.appendChild(linha);
+                    contador[item.marca] = (contador[item.marca] || 0) + 1;
+                }
+            });
+
+            Object.keys(contador).forEach(marca => atualizarContador(marca));
+            salvarDados();
+
+        } catch (erro) {
+            alert("Erro ao ler o arquivo JSON.");
+        }
+    };
+
+    leitor.readAsText(arquivo);
+});
 
     function criarLinha(nome, marca) {
         const linha = document.createElement('tr');
@@ -139,6 +198,32 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.hide();
     });
 
-    // Inicializa carregando dados
     carregarDados();
 });
+
+document.getElementById('filtroEsmalte').addEventListener('change', function () {
+    const filtro = this.value;
+    document.querySelectorAll('#listaItens tr').forEach(tr => {
+        const marca = tr.children[1]?.textContent || '';
+        if (!filtro || marca === filtro) {
+            tr.style.display = '';
+        } else {
+            tr.style.display = 'none';
+        }
+    });
+});
+
+function filtrarPorCor() {
+    const filtro = document.getElementById('filtroCor').value.trim().toLowerCase();
+    document.querySelectorAll('#listaItens tr').forEach(tr => {
+        const cor = tr.children[0]?.textContent.toLowerCase() || '';
+        if (!filtro || cor.includes(filtro)) {
+            tr.style.display = '';
+        } else {
+            tr.style.display = 'none';
+        }
+    });
+}
+
+// Filtrar ao clicar no botão
+document.getElementById('button-addon2').addEventListener('click', filtrarPorCor);

@@ -1,6 +1,7 @@
 
 body {
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-image: url(./img/esmaltebg.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -10,7 +11,10 @@ body {
 form {
     margin-bottom: 20px;
 }
-
+.containe{
+    width: 100px;
+    height: 100px;
+}
 input {
     padding: 8px;
     margin-right: 10px;
