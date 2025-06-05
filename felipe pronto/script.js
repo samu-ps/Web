@@ -23,9 +23,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function salvarDados() {
         const itens = [];
         lista.querySelectorAll('tr').forEach(linha => {
-            const nome = linha.children[0].textContent.trim();
-            const marca = linha.children[1].textContent.trim();
-            itens.push({ nome, marca });
+            const codigo = linha.children[0].textContent.trim();
+            const nome = linha.children[1].textContent.trim();
+            const marca = linha.children[2].textContent.trim();
+            itens.push({ codigo, nome, marca });
         });
         localStorage.setItem('catalogoEsmaltes', JSON.stringify(itens));
     }
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const dados = JSON.parse(localStorage.getItem('catalogoEsmaltes')) || [];
 
         dados.forEach(item => {
-            const linha = criarLinha(item.nome, item.marca);
+            const linha = criarLinha(item.nome, item.marca, item.codigo);
             lista.appendChild(linha);
             contador[item.marca] = (contador[item.marca] || 0) + 1;
         });
@@ -83,8 +84,8 @@ document.getElementById('inputImportar').addEventListener('change', function(eve
             Object.keys(contador).forEach(marca => contador[marca] = 0);
 
             dados.forEach(item => {
-                if (item.nome && item.marca) {
-                    const linha = criarLinha(item.nome, item.marca);
+                if (item.nome && item.marca && item.codigo) {
+                    const linha = criarLinha(item.nome, item.marca, item.codigo);
                     lista.appendChild(linha);
                     contador[item.marca] = (contador[item.marca] || 0) + 1;
                 }
@@ -101,14 +102,15 @@ document.getElementById('inputImportar').addEventListener('change', function(eve
     leitor.readAsText(arquivo);
 });
 
-    function criarLinha(nome, marca) {
+    function criarLinha(nome, marca, codigo) {
         const linha = document.createElement('tr');
         linha.innerHTML = `
-            <td><strong>${nome}</strong></td>
+            <td class="text-center">${codigo}</td>
+            <td class="text-center"><strong>${nome}</strong></td>
             <td class="text-center"><em>${marca}</em></td>
             <td class="text-center">
-                <button class="btn btn-warning btn-sm editar">Editar</button>
-                <button class="btn btn-outline-danger btn-sm remover">Remover</button>
+                <button class="btn btn-warning btn-sm editar"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-outline-danger btn-sm remover"><i class="bi bi-trash3"></i></button>
             </td>
         `;
 
@@ -127,17 +129,28 @@ document.getElementById('inputImportar').addEventListener('change', function(eve
             return;
         }
 
-        const linha = criarLinha(nome, marca);
+        // Gera o próximo código sequencial (maior código atual + 1)
+        let proximoCodigo = 1;
+        if (lista.querySelectorAll('tr').length > 0) {
+            const codigos = Array.from(lista.querySelectorAll('tr'))
+                .map(tr => parseInt(tr.children[0].textContent))
+                .filter(codigo => !isNaN(codigo));
+            if (codigos.length > 0) {
+                proximoCodigo = Math.max(...codigos) + 1;
+            }
+        }
+
+        // Cria e adiciona a nova linha
+        const linha = criarLinha(nome, marca, proximoCodigo);
         lista.appendChild(linha);
 
-        contador[marca]++;
+        contador[marca] = (contador[marca] || 0) + 1;
         atualizarContador(marca);
-
         salvarDados();
 
         form.reset();
         const modal = bootstrap.Modal.getInstance(document.getElementById('modalEsmalte'));
-        modal.hide();
+        if (modal) modal.hide();
     });
 
     function adicionarEventosBotoes(linha) {
@@ -145,17 +158,20 @@ document.getElementById('inputImportar').addEventListener('change', function(eve
         const btnEditar = linha.querySelector('.editar');
 
         btnRemover.addEventListener('click', function () {
-            const marca = linha.children[1].textContent.trim();
+            const marca = linha.children[2].textContent.trim();
             linha.remove();
             contador[marca]--;
             atualizarContador(marca);
             salvarDados();
+            if (confirm("Deseja realmente remover o esmalte?")) {
+            } else {
+            }
         });
 
         btnEditar.addEventListener('click', function () {
             linhaEmEdicao = linha;
-            const nome = linha.children[0].textContent.trim();
-            const marca = linha.children[1].textContent.trim();
+            const nome = linha.children[1].textContent.trim();
+            const marca = linha.children[2].textContent.trim();
 
             document.getElementById('nomeItemEditar').value = nome;
             document.getElementById('categoriaItemEditar').value = marca;
@@ -177,10 +193,10 @@ document.getElementById('inputImportar').addEventListener('change', function(eve
         }
 
         if (linhaEmEdicao) {
-            const marcaAntiga = linhaEmEdicao.children[1].textContent.trim();
+            const marcaAntiga = linhaEmEdicao.children[2].textContent.trim();
 
-            linhaEmEdicao.children[0].innerHTML = `<strong>${novoNome}</strong>`;
-            linhaEmEdicao.children[1].innerHTML = `<em>${novaMarca}</em>`;
+            linhaEmEdicao.children[1].innerHTML = `<strong>${novoNome}</strong>`;
+            linhaEmEdicao.children[2].innerHTML = `<em>${novaMarca}</em>`;
 
             if (marcaAntiga !== novaMarca) {
                 contador[marcaAntiga]--;
@@ -204,7 +220,7 @@ document.getElementById('inputImportar').addEventListener('change', function(eve
 document.getElementById('filtroEsmalte').addEventListener('change', function () {
     const filtro = this.value;
     document.querySelectorAll('#listaItens tr').forEach(tr => {
-        const marca = tr.children[1]?.textContent || '';
+        const marca = tr.children[2]?.textContent || '';
         if (!filtro || marca === filtro) {
             tr.style.display = '';
         } else {
@@ -216,7 +232,7 @@ document.getElementById('filtroEsmalte').addEventListener('change', function () 
 function filtrarPorCor() {
     const filtro = document.getElementById('filtroCor').value.trim().toLowerCase();
     document.querySelectorAll('#listaItens tr').forEach(tr => {
-        const cor = tr.children[0]?.textContent.toLowerCase() || '';
+        const cor = tr.children[1]?.textContent.toLowerCase() || '';
         if (!filtro || cor.includes(filtro)) {
             tr.style.display = '';
         } else {
@@ -225,5 +241,52 @@ function filtrarPorCor() {
     });
 }
 
-// Filtrar ao clicar no botão
 document.getElementById('button-addon2').addEventListener('click', filtrarPorCor);
+
+
+function atualizarContadoresFiltrados() {
+    Object.keys(contador).forEach(marca => {
+        const contadorElemento = document.getElementById(`contador-${marca}`);
+        if (contadorElemento) contadorElemento.textContent = 0;
+    });
+
+    document.querySelectorAll('#listaItens tr').forEach(tr => {
+        if (tr.style.display !== 'none') {
+            const marca = tr.children[1]?.textContent.trim();
+            const contadorElemento = document.getElementById(`contador-${marca}`);
+            if (contadorElemento) {
+                contadorElemento.textContent = parseInt(contadorElemento.textContent) + 1;
+            }
+        }
+    });
+}
+
+function aplicarFiltros() {
+    const filtroMarca = document.getElementById('filtroEsmalte').value;
+    const filtroCor = document.getElementById('filtroCor').value.trim().toLowerCase();
+
+    document.querySelectorAll('#listaItens tr').forEach(tr => {
+        const cor = tr.children[1]?.textContent.toLowerCase() || '';
+        const marca = tr.children[2]?.textContent || '';
+        const marcaOk = !filtroMarca || marca === filtroMarca;
+        const corOk = !filtroCor || cor.includes(filtroCor);
+
+        if (marcaOk && corOk) {
+            tr.style.display = '';
+        } else {
+            tr.style.display = 'none';
+        }
+    });
+
+    atualizarContadoresFiltrados();
+}
+
+document.getElementById('filtroEsmalte').addEventListener('change', aplicarFiltros);
+document.getElementById('filtroCor').addEventListener('input', aplicarFiltros);
+document.getElementById('button-addon2').addEventListener('click', aplicarFiltros);
+
+function atualizarTudo() {
+    Object.keys(contador).forEach(marca => atualizarContador(marca));
+    aplicarFiltros();
+}
+
