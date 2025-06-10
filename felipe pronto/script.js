@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         Impala: 0,
         Dailus: 0,
         Revlon: 0,
-        Risque: 0
+        Risqué: 0
     };
 
     let linhaEmEdicao = null;
@@ -19,6 +19,21 @@ document.addEventListener('DOMContentLoaded', function () {
             contadorElemento.textContent = contador[marca] || 0;
         }
     }
+window.addEventListener('DOMContentLoaded', () => {
+const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle=&quot;tooltip&quot;]'));
+tooltipTriggerList.map(el => new bootstrap.Tooltip(el));
+});
+
+function mostrarAlerta(mensagem, tipo = 'success'){
+    const alerta = document.getElementById('alerta');
+    const alertaTexto= document.getElementById('alertaTexto');
+
+    alertaTexto.innerText = mensagem;
+    alerta.className = `alert alert-${tipo} alert-dismissible fade sho`;
+    alerta.classList.remove('d-none');
+
+    setTimeout(() => alerta.classList.add('d-none'),3000);
+}
 
     function salvarDados() {
         const itens = [];
@@ -29,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
             itens.push({ codigo, nome, marca });
         });
         localStorage.setItem('catalogoEsmaltes', JSON.stringify(itens));
+        document.getElementById('submit').addEventListener('change', mostrarAlerta('Item cadastrado com sucesso!'));
     }
 
     function carregarDados() {
@@ -282,7 +298,7 @@ function aplicarFiltros() {
 }
 
 document.getElementById('filtroEsmalte').addEventListener('change', aplicarFiltros);
-document.getElementById('filtroCor').addEventListener('input', aplicarFiltros);
+// document.getElementById('filtroCor').addEventListener('input', aplicarFiltros);
 document.getElementById('button-addon2').addEventListener('click', aplicarFiltros);
 
 function atualizarTudo() {
@@ -290,3 +306,18 @@ function atualizarTudo() {
     aplicarFiltros();
 }
 
+window.addEventListener('DOMContentLoaded', () => {
+const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle=&quot;tooltip&quot;]'));
+tooltipTriggerList.map(el => new bootstrap.Tooltip(el));
+});
+
+function mostrarAlerta(mensagem, tipo = 'success'){
+    const alerta = document.getElementById('alerta');
+    const alertaTexto= document.getElementById('alertaTexto');
+
+    alertaTexto.innerText = mensagem;
+    alerta.className = 'alert alert-${tipo} alert-dismissible fade show';
+    alerta.classList.remove('d-none');
+
+    setTimeout(() => alerta.classList.add('d-none'),3000);
+}

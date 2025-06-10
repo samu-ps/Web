@@ -43,9 +43,9 @@
                 <img src="./img/Revlon.png" alt="Revlon">
                 <div class="contador" id="contador-Revlon">0</div>
             </div>
-            <div class="col-2" id="card-Risque">
-                <img src="./img/Risque.jpg" alt="Risque" style="width: 100px; height: 100px;">
-                <div class="contador" id="contador-Risque">0</div>
+            <div class="col-2" id="card-Risqué">
+                <img src="./img/Risque.jpg" alt="Risqué" style="width: 100px; height: 100px;">
+                <div class="contador" id="contador-Risqué">0</div>
             </div>
         </div>
     </div>
@@ -68,9 +68,14 @@
                 <option value="Impala">Impala</option>
                 <option value="Dailus">Dailus</option>
                 <option value="Revlon">Revlon</option>
-                <option value="Vult">Vult</option>
+                <option value="Risqué">Risqué</option>
             </select>
         </div>
+    <div id="alerta" role="alert" style="position: relative;
+    z-index: 2000; font-size: 1.1rem; box-shadow: 0 4px 16px rgba(0,0,0,0.15); border-radius: 8px;
+    padding: 16px 24px; transition: opacity 0.3s; opacity: 0.95; display: none;">
+        <span id="alertaTexto">Cadastrado com sucesso <i class="bi bi-check-circle"></i></span>
+    </div>
     <table class="table table-bordered table-hover">
         <table class="table table-bordered table-hover">
             <thead class="table-dark text-center">
@@ -113,13 +118,13 @@
                     <option value="Impala">Impala</option>
                     <option value="Dailus">Dailus</option>
                     <option value="Revlon">Revlon</option>
-                    <option value="Vult">Vult</option>
+                    <option value="Risqué">Risqué</option>
                 </select>
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" id="submit" class="btn btn-primary">Cadastrar</button>
         </div>
         </form>
     </div>
@@ -147,7 +152,7 @@
                             <option value="Impala">Impala</option>
                             <option value="Dailus">Dailus</option>
                             <option value="Revlon">Revlon</option>
-                            <option value="Vult">Vult</option>
+                            <option value="Risqué">Risqué</option>
                         </select>
                     </div>
                 </div>
@@ -159,7 +164,6 @@
         </div>
     </div>
 </div>
-
 
     <script src="./script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
