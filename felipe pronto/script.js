@@ -186,12 +186,9 @@ document.getElementById('inputImportar').addEventListener('change', function(eve
 
         btnEditar.addEventListener('click', function () {
             linhaEmEdicao = linha;
-            const nome = linha.children[1].textContent.trim();
-            const marca = linha.children[2].textContent.trim();
-
-            document.getElementById('nomeItemEditar').value = nome;
-            document.getElementById('categoriaItemEditar').value = marca;
-
+            document.getElementById('codigoItemEditar').value = linha.children[0].textContent.trim();
+            document.getElementById('nomeItemEditar').value = linha.children[1].textContent.trim();
+            document.getElementById('categoriaItemEditar').value = linha.children[2].textContent.trim();
             const modalEditar = new bootstrap.Modal(document.getElementById('modalEditar'));
             modalEditar.show();
         });
@@ -321,3 +318,18 @@ function mostrarAlerta(mensagem, tipo = 'success'){
 
     setTimeout(() => alerta.classList.add('d-none'),3000);
 }
+
+// Ao abrir o modal de adicionar
+document.getElementById('modalEsmalte').addEventListener('show.bs.modal', function () {
+    const lista = document.getElementById('listaItens');
+    let proximoCodigo = 1;
+    if (lista.querySelectorAll('tr').length > 0) {
+        const codigos = Array.from(lista.querySelectorAll('tr'))
+            .map(tr => parseInt(tr.children[0]?.textContent))
+            .filter(codigo => !isNaN(codigo));
+        if (codigos.length > 0) {
+            proximoCodigo = Math.max(...codigos) + 1;
+        }
+    }
+    document.getElementById('codigoItem').value = proximoCodigo;
+});

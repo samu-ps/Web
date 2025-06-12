@@ -80,7 +80,7 @@
         <table class="table table-bordered table-hover">
             <thead class="table-dark text-center">
                 <tr>
-                    <th style="width: 10%;">Código</th>
+                    <th style="width: 10%;">ID</th>
                     <th style="width: 30%;">Cor</th>
                     <th style="width: 30%;">Marca</th>
                     <th style="width: 30%;">Ações</th>
@@ -106,9 +106,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
         </div>
         <div class="modal-body">
-            <div class="mb-3">
-                <label for="nomeItem" class="form-label">Cor do Esmalte</label>
-                <input type="text" class="form-control" id="nomeItem" required>
+            <div class="row">
+                <div class="col-3 mb-3">
+                    <label for="codigoItem" class="form-label">ID</label>
+                    <input type="text" class="form-control form-control-sm" id="codigoItem" readonly style="background-color: #e9ecef; color: #495057; text-align: center;">
+                </div>
+                <div class="col-9 mb-3">
+                    <label for="nomeItem" class="form-label">Cor do Esmalte</label>
+                    <input type="text" class="form-control" id="nomeItem" required>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="categoriaItem" class="form-label">Marca</label>
@@ -139,27 +145,33 @@
                     <h5 class="modal-title" id="modalEditarLabel">Editar Esmalte</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="nomeItemEditar" class="form-label">Cor do Esmalte</label>
-                        <input type="text" class="form-control" id="nomeItemEditar" required>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-3 mb-3">
+                                <label for="codigoItemEditar" class="form-label">ID</label>
+                                <input type="text" class="form-control form-control-sm" id="codigoItemEditar" readonly style="background-color: #e9ecef; color: #495057; text-align: center;">
+                            </div>
+                            <div class="col-9 mb-3">
+                                <label for="nomeItemEditar" class="form-label">Cor do Esmalte</label>
+                                <input type="text" class="form-control" id="nomeItemEditar" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoriaItemEditar" class="form-label">Marca</label>
+                            <select class="form-select" id="categoriaItemEditar" required>
+                                <option value="" disabled selected>Selecione a marca</option>
+                                <option value="Colorama">Colorama</option>
+                                <option value="Impala">Impala</option>
+                                <option value="Dailus">Dailus</option>
+                                <option value="Revlon">Revlon</option>
+                                <option value="Risqué">Risqué</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="categoriaItemEditar" class="form-label">Marca</label>
-                        <select class="form-select" id="categoriaItemEditar" required>
-                            <option value="" disabled selected>Selecione a marca</option>
-                            <option value="Colorama">Colorama</option>
-                            <option value="Impala">Impala</option>
-                            <option value="Dailus">Dailus</option>
-                            <option value="Revlon">Revlon</option>
-                            <option value="Risqué">Risqué</option>
-                        </select>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-                </div>
             </form>
         </div>
     </div>
